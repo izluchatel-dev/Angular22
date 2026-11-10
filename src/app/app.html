@@ -1,0 +1,64 @@
+<div class="catalog-container">
+  <h2 class="catalog-title">Моя книжная библиотека</h2>
+
+  <div class="search-box">
+    <input type="text" [ngModel]="searchQuery()" (ngModelChange)="searchQuery.set($event); onSearch()"
+      placeholder="Поиск по названиям книг или авторам..." class="search-input" />
+  </div>
+
+  @if (isLoading) {
+  <div class="status-message loading">Идет загрузка файлов с данными. Пожалуйста, подождите...</div>
+  }
+
+  @if (errorMessage) {
+  <div class="status-message error">{{ errorMessage }}</div>
+  }
+
+  @if (!isLoading && !errorMessage) {
+  <ul class="tree-root">
+
+    @for (rootGenre of displayTreeItemsNow(); track rootGenre.id) {
+    @if (!rootGenre.parentId) {
+    <li class="tree-item">
+      <span class="node-genre">{{ isGenre(rootGenre) ? rootGenre.name: '' }}</span>
+
+      @if (rootGenre.children && rootGenre.children.length > 0) {
+      <ul class="tree-children">
+
+        @for (subNode of rootGenre.children; track subNode.id) {
+        <li class="tree-item">
+
+          @if (isGenre(subNode)) {
+          <span class="node-genre">{{ subNode.name }}</span>
+
+          @if (subNode.children && subNode.children.length > 0) {
+          <ul class="tree-children">
+            @for (book of subNode.children; track book.id) {
+            <li class="tree-item">
+              <span class="node-book"><strong>{{ isBook(book) ? book.title : '' }}</strong> — <small>{{ isBook(book) ?
+                  book.author: '' }}</small></span>
+            </li>
+            }
+          </ul>
+          }
+
+          } @else {
+          <span class="node-book"><strong>{{ isBook(subNode) ? subNode.title : '' }}</strong> — <small>{{
+              isBook(subNode) ? subNode.author : '' }}</small></span>
+          }
+
+        </li>
+        }
+
+      </ul>
+      }
+
+    </li>
+    }
+    } @empty {
+    <li class="empty-message">Ни одной книги не найдено :(</li>
+    }
+
+  </ul>
+  }
+</div>
