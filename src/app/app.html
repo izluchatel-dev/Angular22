@@ -20,7 +20,7 @@
     @for (rootGenre of displayTreeItemsNow(); track rootGenre.id) {
     @if (!rootGenre.parentId) {
     <li class="tree-item">
-      <span class="node-genre">{{ isGenre(rootGenre) ? rootGenre.name: '' }}</span>
+      <span appNodesHover="genreNode" class="node-genre">{{ isGenre(rootGenre) ? rootGenre.name: '' }}</span>
 
       @if (rootGenre.children && rootGenre.children.length > 0) {
       <ul class="tree-children">
@@ -29,13 +29,13 @@
         <li class="tree-item">
 
           @if (isGenre(subNode)) {
-          <span class="node-genre">{{ subNode.name }}</span>
+          <span appNodesHover="genreNode" class="node-genre">{{ subNode.name }}</span>
 
           @if (subNode.children && subNode.children.length > 0) {
           <ul class="tree-children">
             @for (book of subNode.children; track book.id) {
             <li class="tree-item">
-              <span class="node-book"><strong>{{ isBook(book) ? book.title : '' }}</strong> — <small>{{ isBook(book) ?
+              <span appNodesHover="bookNode" [hasBorder]="true" class="node-book"><strong>{{ isBook(book) ? book.title : '' }}</strong> — <small>{{ isBook(book) ?
                   book.author: '' }}</small></span>
             </li>
             }
@@ -43,7 +43,7 @@
           }
 
           } @else {
-          <span class="node-book"><strong>{{ isBook(subNode) ? subNode.title : '' }}</strong> — <small>{{
+          <span appNodesHover="bookNode" [hasBorder]="true" class="node-book"><strong>{{ isBook(subNode) ? subNode.title : '' }}</strong> — <small>{{
               isBook(subNode) ? subNode.author : '' }}</small></span>
           }
 

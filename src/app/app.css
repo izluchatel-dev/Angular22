@@ -76,7 +76,7 @@
 
 .node-genre {
   font-weight: bold;
-  color: #2980b9;
+  color: var(--color-node-genre);
   cursor: default;
 }
 
@@ -86,7 +86,7 @@
 }
 
 .node-book {
-  color: #2c3e50;
+  color: var(--color-node-book);
   padding-left: 4px;
 }
 
