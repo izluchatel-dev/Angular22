@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BookService } from './services/book.service';
 import { IBookDataService, TreeNode, GenreNode, BookNode } from './models/book-tree.models';
+import { NodesHover } from './nodes-hover';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, NodesHover],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
