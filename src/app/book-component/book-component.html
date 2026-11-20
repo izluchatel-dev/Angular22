@@ -1,0 +1,32 @@
+<div style="display: flex; gap: 8px; margin-bottom: 16px;">
+    <input style="width: 300px;"
+      #queryInput 
+      (input)="search$.next(queryInput.value)" 
+      placeholder="Введите название книги или автора..." 
+    />
+
+    <select #limitSelect (change)="onLimitChange(+limitSelect.value, queryInput.value)">
+      @for (n of limitsValues; track n) {
+        <option [value]="n" [selected]="n === selectedLimit()">По {{ n }}</option>
+      }
+    </select>
+</div>
+
+@if (showLimitTip()) {
+  <p style="color: #005fcc; margin-bottom: 16px;">
+    Совет: Вы можете изменить количество отображаемых книг в выпадающем списке
+  </p>
+}
+
+@if (isLoading()) {
+  <p>Обработка запроса openlibrary.org...</p>
+}
+
+<ul>
+    @for (book of books(); track book.key) {
+    <li>
+        <strong>{{ book.title }}</strong>
+        ({{ book.author_name?.join(', ') || 'Автор не указан' }})       
+    </li>
+    }
+</ul>
