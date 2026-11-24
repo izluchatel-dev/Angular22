@@ -1,0 +1,20 @@
+<main style="padding: 8px;">
+    <h1>Книги по JavaScript (Open Library)</h1>
+
+    @if (isLoading()) {
+    <p>Загрузка списка...</p>
+    } @else if (error()) {
+    <p style="color: red;">{{ error() }}</p>
+    } @else {
+    <ul>
+        @for (book of books(); track book.id) {
+        <li style="margin-bottom: 8px;">
+            <a [routerLink]="['/books', book.id]">
+                <strong>{{ book.title }}</strong>
+            </a>
+            — {{ book.author }} ({{ book.firstPublishYear ?? 'год не указан' }})
+        </li>
+        }
+    </ul>
+    }
+</main>

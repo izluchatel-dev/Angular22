@@ -1,0 +1,13 @@
+<main style="padding: 8px;">
+  <a routerLink="/books">← Назад к списку</a>
+
+  @if (isLoading()) {
+    <p>Загрузка деталей...</p>
+  } @else if (book(); as details) {
+    <h1>{{ details.title }}</h1>
+    <p><strong>ID в Open Library:</strong> {{ details.key }}</p>
+    <p><strong>Описание:</strong> {{ description() }}</p>
+  } @else {
+    <p>Книга не найдена</p>
+  }
+</main>
